@@ -59,9 +59,10 @@ You can override that with:
 --runtime-library /path/to/shared/library
 ```
 
-Wheel builds require the native runtime to already exist in `build/runtime/`
-and fail if it is missing. Editable and source installs do not build the runtime
-during `pip install`.
+Wheel and editable builds require the native runtime to already exist in
+`build/runtime/` and fail if it is missing. They do not build the runtime
+during `pip install`; run the CMake steps in
+[Build From Source](build-from-source.md) first.
 
 ## Build From Source
 

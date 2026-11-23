@@ -21,7 +21,7 @@ For the containerized path, install Podman instead of the native toolchain.
 The FMI reference material is provided through the `3rd_party/fmi_2` submodule.
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/pyssporg/pyfmu_csv.git
 cd pyfmu_csv
 git submodule update --init --recursive
 ```
@@ -30,26 +30,6 @@ If the repository is already cloned, still run:
 
 ```bash
 git submodule update --init --recursive
-```
-
-## Create A Python Environment
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip
-python -m pip install -r requirements-dev.txt
-python -m pip install -e .
-```
-
-Editable and source installs remain Python-only. FMU generation will use either an
-explicit `--runtime-library`, a bundled wheel runtime, or a local
-`build/runtime/libpyfmu_csv_fmi2_cs.*` artifact.
-
-If you do not want to install the package, you can still run the module directly with:
-
-```bash
-PYTHONPATH=src python -m pyfmu_csv --help
 ```
 
 ## Native Build
@@ -62,6 +42,28 @@ cmake --build build
 ```
 
 After the native build, the runtime is available under `build/runtime/`.
+
+## Create A Python Environment
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements-dev.txt
+python -m pip install -e .
+```
+
+The runtime must exist in `build/runtime/` before this install: the editable
+build bundles it and fails when it is missing. Editable and source installs
+remain Python-only otherwise. FMU generation will use either an
+explicit `--runtime-library`, a bundled wheel runtime, or a local
+`build/runtime/libpyfmu_csv_fmi2_cs.*` artifact.
+
+If you do not want to install the package, you can still run the module directly with:
+
+```bash
+PYTHONPATH=src python -m pyfmu_csv --help
+```
 
 ## Native Test Flow
 

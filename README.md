@@ -3,7 +3,7 @@
 `pyfmu_csv` generates FMI 2.0 Co-Simulation FMU packages from CSV-described signals using a hybrid toolchain:
 
 - Python handles CSV inspection, FMU metadata generation, and packaging.
-- C++ provides the reusable runtime artifact that will eventually execute inside the FMU host.
+- C++ provides the reusable runtime artifact that executes inside the FMU host.
 
 The current product can:
 
@@ -27,6 +27,12 @@ Supported output types today:
 - `Boolean`
 - `String`
 
+## Requirements
+
+- Python 3.11 or newer.
+- For a source build: Git with submodules, CMake 3.21 or newer, and a C++17
+  compiler. The published wheel has no build toolchain requirement.
+
 ## Quick Install
 
 This is the main usage path. Install the published wheel and use the bundled runtime
@@ -49,6 +55,9 @@ pyfmu-csv generate-fmu \
 ```
 
 This published wheel path is currently for Linux and is tagged `py3-none-linux_x86_64`.
+
+`samples/signals.csv` ships in the source checkout. When you install only the
+wheel, point `--input-csv` at any CSV whose first column is `time`.
 
 If the published wheel does not match your platform or Python version, use the
 [Build From Source](docs/build-from-source.md) guide instead.
@@ -94,6 +103,26 @@ Everything in the source workflow lives in the dedicated guide:
 - [Build From Source](docs/build-from-source.md)
 - [Testing](docs/testing.md)
 
+## Development
+
+```bash
+git submodule update --init --recursive
+
+# The editable install bundles the native runtime, so build it first.
+cmake -S . -B build
+cmake --build build
+
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements-dev.txt
+
+python -m pytest          # the CI selection after the native build
+ruff check src tests      # configured in pyproject.toml, not ruff.toml
+```
+
+Contributor rules, package layout, and native prerequisites are in
+[AGENTS.md](AGENTS.md).
+
 ## Documentation
 
 - [Overview](docs/overview.md)
@@ -103,3 +132,4 @@ Everything in the source workflow lives in the dedicated guide:
 - [Testing](docs/testing.md)
 - [Limitations](docs/limitations.md)
 - [Localization Notes](docs/localization.md)
+- [Contributor rules](AGENTS.md)

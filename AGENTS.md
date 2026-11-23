@@ -74,8 +74,8 @@ and zips the `.fmu`. It does not parse SysML and emits no SysML artifacts.
   `PB=<skills-dir>/product-breakdown/scripts/pb` and pass
   `--root docs/breakdown` to every command:
   - current state lives in layer leaves, in the present tense;
-  - regenerate the generated registers with `python3 $PB registers --root
-    docs/breakdown`; never edit them by hand;
+  - regenerate the registers declared in `docs/breakdown/pb.toml` with
+    `python3 $PB registers --root docs/breakdown`; never edit them by hand;
   - run `python3 $PB check --strict --root docs/breakdown` and
     `python3 $PB node-size --strict --root docs/breakdown` after edits.
 - Version lives in `src/pyfmu_csv/__init__.py` only; `pyproject.toml` is

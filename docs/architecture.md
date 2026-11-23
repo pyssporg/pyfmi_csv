@@ -39,13 +39,16 @@ Generated per FMU:
 
 ```text
 .
+├── 3rd_party/
 ├── CMakeLists.txt
+├── containers/
 ├── docs/
 ├── pyproject.toml
+├── samples/
+├── scripts/
+├── setup.py
 ├── src/pyfmu_csv/
 ├── src/runtime/
-├── samples/
-├── templates/fmi2/
 └── tests/
 ```
 
