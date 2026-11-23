@@ -1,16 +1,18 @@
 from __future__ import annotations
 
 import json
-from pathlib import Path
 from zipfile import ZipFile
 
-from pyfmu_csv.packaging import create_fmu_skeleton, host_platform_tuple, package_fmu_from_csv
 from pyfmu_csv.csv_model import load_csv_model
+from pyfmu_csv.packaging import create_fmu_skeleton, host_platform_tuple, package_fmu_from_csv
 
 
 def test_create_fmu_skeleton_creates_expected_layout(tmp_path) -> None:
     csv_path = tmp_path / "signals.csv"
-    csv_path.write_text("time,temperature,count:Integer,enabled:Boolean,mode:String\n0,1,2,true,auto\n", encoding="utf-8")
+    csv_path.write_text(
+        "time,temperature,count:Integer,enabled:Boolean,mode:String\n0,1,2,true,auto\n",
+        encoding="utf-8",
+    )
     model = load_csv_model(csv_path, "DemoModel")
     output_dir = tmp_path / "DemoModel.fmu"
     runtime_library = tmp_path / "libpyfmu_csv_fmi2_cs.so"
@@ -34,7 +36,10 @@ def test_create_fmu_skeleton_creates_expected_layout(tmp_path) -> None:
 
 def test_create_fmu_skeleton_can_skip_copying_source_csv(tmp_path) -> None:
     csv_path = tmp_path / "signals.csv"
-    csv_path.write_text("time,temperature,count:Integer,enabled:Boolean,mode:String\n0,1,2,true,auto\n", encoding="utf-8")
+    csv_path.write_text(
+        "time,temperature,count:Integer,enabled:Boolean,mode:String\n0,1,2,true,auto\n",
+        encoding="utf-8",
+    )
     model = load_csv_model(csv_path, "DemoModel")
     output_dir = tmp_path / "DemoModel.fmu"
     runtime_library = tmp_path / "libpyfmu_csv_fmi2_cs.so"

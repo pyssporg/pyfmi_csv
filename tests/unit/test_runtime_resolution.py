@@ -5,7 +5,11 @@ from pathlib import Path
 import pytest
 
 from pyfmu_csv.csv_model import load_csv_model
-from pyfmu_csv.packaging import create_fmu_skeleton, host_platform_tuple, resolve_runtime_library_path
+from pyfmu_csv.packaging import (
+    create_fmu_skeleton,
+    host_platform_tuple,
+    resolve_runtime_library_path,
+)
 
 
 def test_resolve_runtime_library_path_prefers_explicit_argument(tmp_path, monkeypatch) -> None:
@@ -21,7 +25,9 @@ def test_resolve_runtime_library_path_prefers_explicit_argument(tmp_path, monkey
     assert resolved == explicit
 
 
-def test_create_fmu_skeleton_prefers_bundled_runtime_over_local_build(tmp_path, monkeypatch) -> None:
+def test_create_fmu_skeleton_prefers_bundled_runtime_over_local_build(
+    tmp_path, monkeypatch
+) -> None:
     csv_path = tmp_path / "signals.csv"
     csv_path.write_text("time,temperature\n0,1\n", encoding="utf-8")
     model = load_csv_model(csv_path, "BundledWins")
@@ -32,7 +38,9 @@ def test_create_fmu_skeleton_prefers_bundled_runtime_over_local_build(tmp_path, 
     local.write_bytes(b"local")
 
     monkeypatch.setattr("pyfmu_csv.packaging.bundled_runtime_library", lambda: bundled)
-    monkeypatch.setattr("pyfmu_csv.packaging.default_runtime_library_path", lambda project_root=None: local)
+    monkeypatch.setattr(
+        "pyfmu_csv.packaging.default_runtime_library_path", lambda project_root=None: local
+    )
 
     create_fmu_skeleton(output_dir, model)
 
@@ -50,7 +58,9 @@ def test_create_fmu_skeleton_falls_back_to_local_runtime_build(tmp_path, monkeyp
     local.write_bytes(b"local")
 
     monkeypatch.setattr("pyfmu_csv.packaging.bundled_runtime_library", lambda: None)
-    monkeypatch.setattr("pyfmu_csv.packaging.default_runtime_library_path", lambda project_root=None: local)
+    monkeypatch.setattr(
+        "pyfmu_csv.packaging.default_runtime_library_path", lambda project_root=None: local
+    )
 
     create_fmu_skeleton(output_dir, model)
 

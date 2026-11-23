@@ -7,7 +7,7 @@ Everything in this guide requires a source checkout.
 For a native host setup, install:
 
 - Git
-- Python 3.10+
+- Python 3.11+
 - `venv`
 - `pytest`
 - `fmpy`
@@ -49,7 +49,7 @@ explicit `--runtime-library`, a bundled wheel runtime, or a local
 If you do not want to install the package, you can still run the module directly with:
 
 ```bash
-PYTHONPATH=python python -m pyfmu_csv --help
+PYTHONPATH=src python -m pyfmu_csv --help
 ```
 
 ## Native Build

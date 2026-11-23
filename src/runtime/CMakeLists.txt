@@ -34,6 +34,13 @@ target_link_libraries(pyfmu_csv_fmi2_cs
 
 target_compile_features(pyfmu_csv_fmi2_cs PUBLIC cxx_std_17)
 
+# The runtime is consumed from build/runtime/ regardless of where its sources
+# live in the tree.
+set_target_properties(pyfmu_csv_fmi2_cs PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/runtime
+    RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/runtime
+)
+
 if(PYFMU_CSV_STATIC_STDLIB)
     if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
         target_link_options(pyfmu_csv_fmi2_cs PRIVATE -static-libstdc++ -static-libgcc)

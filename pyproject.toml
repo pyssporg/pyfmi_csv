@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=66", "wheel>=0.38"]
+requires = ["setuptools>=77", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,27 +8,70 @@ dynamic = ["version"]
 description = "Tooling for packaging CSV-driven FMI 2.0 Co-Simulation FMUs."
 readme = "README.md"
 requires-python = ">=3.11"
-license = { file = "LICENSE" }
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [
   { name = "pyfmu_csv contributors" }
+]
+keywords = [
+  "fmi",
+  "fmu",
+  "csv",
+  "co-simulation",
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: C++",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering",
 ]
 dependencies = []
 
 [project.optional-dependencies]
 fmi = ["pyfmi-interfaces>=0.5.1"]
-dev = ["pytest>=8.0", "fmpy>=0.3.29"]
+dev = [
+  "pytest>=8",
+  "fmpy>=0.3.29",
+  "ruff>=0.6",
+  "build",
+]
 
 [project.scripts]
 pyfmu-csv = "pyfmu_csv.cli:main"
 
-[tool.setuptools.dynamic]
-version = { attr = "pyfmu_csv.__version__" }
+[project.urls]
+Documentation = "https://github.com/pyssporg/pyfmu_csv/tree/main/docs"
+Source = "https://github.com/pyssporg/pyfmu_csv"
 
 [tool.setuptools]
-package-dir = { "" = "python" }
+package-dir = {"" = "src"}
 
 [tool.setuptools.package-data]
 pyfmu_csv = ["_runtime/*"]
 
+[tool.setuptools.dynamic]
+version = { attr = "pyfmu_csv.__version__" }
+
 [tool.setuptools.packages.find]
-where = ["python"]
+where = ["src"]
+include = ["pyfmu_csv*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+# Lint selection is explicit so a ruff upgrade cannot change the gate.
+select = ["E", "F", "I", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+markers = [
+  "unit: one object's behaviour, no generated artifact",
+  "integration: several real components composed together",
+  "e2e: the CLI and the native runtime are driven end to end",
+]

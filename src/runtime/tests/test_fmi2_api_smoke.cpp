@@ -1,4 +1,4 @@
-#include "../../3rd_party/fmi_2/headers/fmi2Functions.h"
+#include "fmi2Functions.h"
 
 #include <cstdlib>
 #include <filesystem>

@@ -10,4 +10,4 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 include(CTest)
 
-add_subdirectory(runtime)
+add_subdirectory(src/runtime)

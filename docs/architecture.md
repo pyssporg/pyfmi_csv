@@ -42,8 +42,8 @@ Generated per FMU:
 ├── CMakeLists.txt
 ├── docs/
 ├── pyproject.toml
-├── python/pyfmu_csv/
-├── runtime/
+├── src/pyfmu_csv/
+├── src/runtime/
 ├── samples/
 ├── templates/fmi2/
 └── tests/

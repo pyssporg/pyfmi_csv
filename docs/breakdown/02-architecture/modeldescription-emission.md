@@ -9,7 +9,7 @@ status: current
 
 # modelDescription emission
 
-`python/pyfmu_csv/model_description.py` emits `modelDescription.xml` through
+`src/pyfmu_csv/model_description.py` emits `modelDescription.xml` through
 `pyfmi_interfaces` when its optional `[fmi]` extra is installed and falls back
 to the bundled writer when it is not.
 

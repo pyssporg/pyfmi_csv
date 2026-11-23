@@ -7,3 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- A `tests` workflow that builds the native runtime, lints, and runs the Python suite.
+
+### Changed
+
+- Moved the Python package to the `src/` layout and the native runtime to
+  `src/runtime/`, matching the workspace package structure.
+- Moved the ruff and pytest configuration from `ruff.toml` into `pyproject.toml`.
+

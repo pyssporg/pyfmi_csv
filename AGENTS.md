@@ -37,6 +37,8 @@ and zips the `.fmu`. It does not parse SysML and emits no SysML artifacts.
 - Outputs: `modelDescription.xml`, `resources/model.json`, an optional copy of
   the source CSV under `resources/data/`, and the native runtime binary under
   `binaries/<platform>/`.
+- The Python package lives in `src/pyfmu_csv/` and the native runtime in
+  `src/runtime/`.
 - Current state lives in `docs/breakdown/`; the code is the source of truth
   when the two disagree.
 
@@ -54,8 +56,8 @@ and zips the `.fmu`. It does not parse SysML and emits no SysML artifacts.
   archive order is sorted.
 - **Do not edit generated files by hand.** Change the CSV model, the writer, or
   the template, then regenerate.
-- **One runtime per package.** The C++ runtime in `runtime/` is built once and
-  copied into each FMU; the package does not generate model C++ sources.
+- **One runtime per package.** The C++ runtime in `src/runtime/` is built once
+  and copied into each FMU; the package does not generate model C++ sources.
 
 ## Code guidelines
 
@@ -76,7 +78,7 @@ and zips the `.fmu`. It does not parse SysML and emits no SysML artifacts.
     docs/breakdown`; never edit them by hand;
   - run `python3 $PB check --strict --root docs/breakdown` and
     `python3 $PB node-size --strict --root docs/breakdown` after edits.
-- Version lives in `python/pyfmu_csv/__init__.py` only; `pyproject.toml` is
+- Version lives in `src/pyfmu_csv/__init__.py` only; `pyproject.toml` is
   dynamic and has no `[project].version`.
 
 ## Environment
@@ -89,5 +91,5 @@ and zips the `.fmu`. It does not parse SysML and emits no SysML artifacts.
   `cmake --build build`; native tests: `ctest --test-dir build --output-on-failure`.
 - Tests: `python -m pytest`; the full suite includes the FMPy end-to-end checks
   when the native runtime has been built.
-- Lint: `ruff check python tests`.
+- Lint: `ruff check src tests`.
 - Build: `python -m build --wheel --sdist`.

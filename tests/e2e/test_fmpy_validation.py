@@ -3,10 +3,12 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
-fmpy = pytest.importorskip("fmpy")
-from fmpy import read_model_description, simulate_fmu
 
 from pyfmu_csv.packaging import package_fmu_from_csv
+
+fmpy = pytest.importorskip("fmpy")
+read_model_description = fmpy.read_model_description
+simulate_fmu = fmpy.simulate_fmu
 
 
 def built_runtime_library() -> Path:
@@ -29,7 +31,9 @@ def test_generated_fmu_is_parseable_by_fmpy(tmp_path) -> None:
     )
     output_fmu = tmp_path / "PlantOutputs.fmu"
 
-    package_fmu_from_csv(csv_path, output_fmu, "PlantOutputs", runtime_library=built_runtime_library())
+    package_fmu_from_csv(
+        csv_path, output_fmu, "PlantOutputs", runtime_library=built_runtime_library()
+    )
 
     model_description = read_model_description(
         output_fmu,
@@ -45,12 +49,17 @@ def test_generated_fmu_is_parseable_by_fmpy(tmp_path) -> None:
     assert "count" in variable_names
     assert "enabled" in variable_names
     assert "mode" in variable_names
-    csv_parameter = next(variable for variable in model_description.modelVariables if variable.name == "csv_path")
+    csv_parameter = next(
+        variable for variable in model_description.modelVariables if variable.name == "csv_path"
+    )
     assert csv_parameter.start == "data/signals.csv"
 
 
 @pytest.mark.xfail(
-    reason="Current FMPy simulate_fmu path does not apply the String start value from modelDescription.xml",
+    reason=(
+        "Current FMPy simulate_fmu path does not apply the String start value "
+        "from modelDescription.xml"
+    ),
     strict=False,
 )
 def test_generated_fmu_runs_through_fmpy_with_packaged_csv_fallback(tmp_path) -> None:
@@ -63,7 +72,9 @@ def test_generated_fmu_runs_through_fmpy_with_packaged_csv_fallback(tmp_path) ->
     )
     output_fmu = tmp_path / "PlantOutputs.fmu"
 
-    package_fmu_from_csv(csv_path, output_fmu, "PlantOutputs", runtime_library=built_runtime_library())
+    package_fmu_from_csv(
+        csv_path, output_fmu, "PlantOutputs", runtime_library=built_runtime_library()
+    )
 
     result = simulate_fmu(
         output_fmu,
@@ -97,7 +108,9 @@ def test_generated_fmu_explicit_csv_path_override_still_works(tmp_path) -> None:
     )
     output_fmu = tmp_path / "PlantOutputs.fmu"
 
-    package_fmu_from_csv(packaged_csv_path, output_fmu, "PlantOutputs", runtime_library=built_runtime_library())
+    package_fmu_from_csv(
+        packaged_csv_path, output_fmu, "PlantOutputs", runtime_library=built_runtime_library()
+    )
 
     result = simulate_fmu(
         output_fmu,

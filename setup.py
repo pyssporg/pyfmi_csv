@@ -14,7 +14,7 @@ except ImportError:  # pragma: no cover
 
 
 ROOT = Path(__file__).resolve().parent
-sys.path.insert(0, str(ROOT / "python"))
+sys.path.insert(0, str(ROOT / "src"))
 
 from pyfmu_csv.packaging import default_runtime_library_path, runtime_library_filename  # noqa: E402
 
@@ -30,7 +30,8 @@ class build_py(_build_py):
         source = default_runtime_library_path(ROOT)
         if not source.is_file():
             raise FileNotFoundError(
-                f"runtime library does not exist: {source}. Build the native runtime before building the wheel."
+                f"runtime library does not exist: {source}. "
+                "Build the native runtime before building the wheel."
             )
 
         destination_dir = Path(self.build_lib) / "pyfmu_csv" / "_runtime"

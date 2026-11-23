@@ -1,0 +1,16 @@
+include LICENSE
+include README.md
+include pyproject.toml
+include setup.py
+include requirements-dev.txt
+
+# The sdist must rebuild the native runtime and package FMUs from a checkout.
+graft src/runtime
+graft 3rd_party/fmi_2/headers
+
+graft containers
+graft scripts
+graft samples
+graft templates
+
+global-exclude *.py[cod]
