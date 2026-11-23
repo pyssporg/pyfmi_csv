@@ -1,3 +1,12 @@
+/*
+ * FMI 2.0 CoSimulation facade, hand-written against the vendored headers.
+ * The shared pyfmi_interfaces C runtime could replace it later, but not as a
+ * drop-in: that runtime is generated per component from a Reduction and calls
+ * user-owned model hooks, while this facade wraps one prebuilt CSV runtime
+ * (FmuRuntime) with no model seam. Its CSV loading and interpolation would
+ * have to move into a generated hook, and packaging would switch from embedding
+ * one reusable library to compiling generated sources per model.
+ */
 #include "pyfmu_csv/runtime/fmu_runtime.hpp"
 
 #include "../../3rd_party/fmi_2/headers/fmi2Functions.h"

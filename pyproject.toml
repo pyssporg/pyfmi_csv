@@ -15,6 +15,7 @@ authors = [
 dependencies = []
 
 [project.optional-dependencies]
+fmi = ["pyfmi-interfaces>=0.5.1"]
 dev = ["pytest>=8.0", "fmpy>=0.3.29"]
 
 [project.scripts]

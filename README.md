@@ -74,6 +74,19 @@ pyfmu-csv inspect-csv \
   --model-name CsvSignals
 ```
 
+## Optional Shared FMI Emitter
+
+The package installs with no third-party runtime dependency. Install the `fmi`
+extra to emit `modelDescription.xml` through the shared `pyfmi_interfaces`
+emitter:
+
+```bash
+python -m pip install "pyfmu_csv[fmi]"
+```
+
+Without the extra, packaging keeps working through the bundled writer and warns
+with this same install command.
+
 ## Build From Source
 
 Everything in the source workflow lives in the dedicated guide:

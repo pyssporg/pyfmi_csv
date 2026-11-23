@@ -12,3 +12,4 @@ status: current
 - `python/pyfmu_csv/` — Python package
 - `runtime/` — Native FMI runtime
 - `containers/` — Docker build
+- `INFO-004` [modelDescription emission](modeldescription-emission.md) — the XML writer uses the optional `pyfmi_interfaces` extra and keeps a bundled zero-dependency fallback.

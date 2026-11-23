@@ -27,44 +27,42 @@ become. It is the first document to read, not a reference of last resort.
 
 ## Repository Focus
 
-`pycps_sysml2` is the single home of our SysML dialect: parsing, the IR,
-variation, selection, constraints, and every marker and metadata accessor for
-the SSP and the FMI dialects. `pyssp_sysml2` and `pyfmi_sysml2` implement the
-dialect; they consume this library and emit artifacts. This repository emits
-none.
+`pyfmu_csv` turns a CSV-described signal set into a packaged FMI 2.0
+Co-Simulation FMU. It reads the CSV header to build a parser-free
+`CsvModelDescription`, emits `modelDescription.xml`, stages the package layout,
+and zips the `.fmu`. It does not parse SysML and emits no SysML artifacts.
 
-- Current state, the dialect inventory, and the layering rule live in
-  `docs/breakdown/`; the code is the source of truth when the two disagree.
-- Dated decisions live in `docs/archive/archive.zip`, read with `pb archive`.
+- Input: a CSV file whose first column is `time` and whose remaining header
+  names carry optional `:Real`, `:Integer`, `:Boolean`, or `:String` types.
+- Outputs: `modelDescription.xml`, `resources/model.json`, an optional copy of
+  the source CSV under `resources/data/`, and the native runtime binary under
+  `binaries/<platform>/`.
+- Current state lives in `docs/breakdown/`; the code is the source of truth
+  when the two disagree.
 
 ## Hard constraints
 
-- **One dialect owner.** A marker, attribute name, or resolution rule exists
-  here once. An implementer selects a domain with `RolePolicy`,
-  `DialectPolicy`, or `ControlAttributes`; it never re-declares a marker.
-- **No `pyssp_standard`, direct or transitive.** It carries artifact objects,
-  which this library does not know about. `pyssp_sysml2` and `pyfmi_sysml2` are
-  never imported either.
-- **The layering rule.** `model` ← `core` ← `metadata` ← `parameters`;
-  `parameters/dialect` above `metadata`. Nothing below `parameters` imports
-  `parameters`, and no module below `metadata` imports a marker constant or
-  calls `is_ssp_model`/`is_analysis`.
-- **The parser boundary.** Only `model/parser.py` imports `sysmlpy`; only
-  `model/variation.py` walks the raw ANTLR tree. The IR is repo-owned.
-- **The pin is hard.** `sysmlpy==0.96.4`, exact. A bump is a dialect decision
-  that lands with a record and a test.
-- **No artifact path in `src/`.** `.ssd`, `.ssv`, `.ssm`, `.ssp`, `.fmu`, and
-  `resources/` belong to the implementers.
-- **Fixtures are evidence.** Every fixture directory has a `case.md` listing its
-  files; a document of 15 or more lines is a file, never a test literal.
+- **Zero-dependency core.** The Python package installs and packages FMUs with
+  no third-party runtime dependency. `pyfmi_interfaces` is an optional `[fmi]`
+  extra, imported lazily; without it the bundled XML writer keeps working.
+- **One model description per build.** `CsvModelDescription` is the only input
+  of the XML writer, and variable order, names, value references, causality,
+  variability, and `modelIdentifier` are preserved whichever writer is used.
+- **The generated artifact is the unit under test.** Assertions run against
+  the emitted XML or the packed `.fmu`, not an intermediate string.
+- **Deterministic output.** The GUID is the stable uuid5 of the model name, and
+  archive order is sorted.
+- **Do not edit generated files by hand.** Change the CSV model, the writer, or
+  the template, then regenerate.
+- **One runtime per package.** The C++ runtime in `runtime/` is built once and
+  copied into each FMU; the package does not generate model C++ sources.
 
 ## Code guidelines
 
-- Keep changes direct and explicit. Minimize duplication, but do not hide the
-  dialect behind abstractions.
-- Public entry points take their policy keyword-only and required; private
-  helpers take it positionally and forward it. No default domain.
-- Keep error messages naming the member, its owner, and the path involved.
+- Keep changes direct and explicit. Minimize duplication without hiding the
+  data flow behind abstractions.
+- Keep error messages naming the input, its owner, and the path involved.
+- Preserve the zero-dependency path whenever an optional integration is added.
 - Treat interfaces as pre-1.0: clarity outranks compatibility shims.
 
 ## Conventions
@@ -74,23 +72,22 @@ none.
   `PB=<skills-dir>/product-breakdown/scripts/pb` and pass
   `--root docs/breakdown` to every command:
   - current state lives in layer leaves, in the present tense;
-  - dated decisions live in `docs/archive/archive.zip` (`pb archive list`,
-    `pb archive read <ID>`, `pb archive add <FILE>`);
-  - never add per-layer `decisions/` folders or hand-maintain decision logs;
-  - regenerate `docs/archive/README.md`, `design-choice-log.md`, and
-    `traceability-map.md` with `python3 $PB registers --root docs/breakdown`;
-    never edit them by hand;
+  - regenerate the generated registers with `python3 $PB registers --root
+    docs/breakdown`; never edit them by hand;
   - run `python3 $PB check --strict --root docs/breakdown` and
     `python3 $PB node-size --strict --root docs/breakdown` after edits.
-- Version lives in `src/pycps_sysml2/__init__.py` only; `pyproject.toml` is
+- Version lives in `python/pyfmu_csv/__init__.py` only; `pyproject.toml` is
   dynamic and has no `[project].version`.
 
 ## Environment
 
-- Python >= 3.10; CI runs 3.11 and 3.12.
-- `python3 -m venv venv`, `source venv/bin/activate`,
+- Python >= 3.11; a C++17 compiler, `cmake`, and `ninja` build the native
+  runtime.
+- `python3 -m venv .venv`, `source .venv/bin/activate`,
   `pip install -e ".[dev]"`.
-- Tests: `python3 -m pytest -m "not slow"` (the CI gate); a bare
-  `python3 -m pytest` includes the slow set.
-- Lint: `ruff check src tests`.
+- Native build: `cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release` then
+  `cmake --build build`; native tests: `ctest --test-dir build --output-on-failure`.
+- Tests: `python -m pytest`; the full suite includes the FMPy end-to-end checks
+  when the native runtime has been built.
+- Lint: `ruff check python tests`.
 - Build: `python -m build --wheel --sdist`.
