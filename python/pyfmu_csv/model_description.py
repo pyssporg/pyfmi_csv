@@ -66,7 +66,7 @@ def _build_shared_model_description_xml(
             name=model.csv_path_parameter,
             type_name="String",
             causality="parameter",
-            variability="tunable",
+            variability="fixed",
             value_reference=0,
             index=1,
             description=None,
@@ -145,7 +145,7 @@ def _build_bundled_model_description_xml(
         {
             "name": model.csv_path_parameter,
             "valueReference": "0",
-            "variability": "tunable",
+            "variability": "fixed",
             "causality": "parameter",
         },
     )
