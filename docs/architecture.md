@@ -47,7 +47,7 @@ Generated per FMU:
 ├── samples/
 ├── scripts/
 ├── setup.py
-├── src/pyfmu_csv/
+├── src/pyfmi_csv/
 ├── src/runtime/
 └── tests/
 ```
@@ -73,7 +73,7 @@ The runtime is packaged into the generated FMU under the required `binaries/<pla
 
 ## Optional shared FMI emitter
 
-`pyfmu_csv` installs with no third-party runtime dependency. The `[fmi]` extra
+`pyfmi_csv` installs with no third-party runtime dependency. The `[fmi]` extra
 adds `pyfmi_interfaces`, which owns FMI `modelDescription.xml` generation for
 the wider family. `model_description.py` imports it lazily and maps the
 existing `CsvModelDescription` onto a `Reduction`; when the extra is absent the

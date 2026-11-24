@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import pytest
 
-from pyfmu_csv.csv_model import load_csv_model
-from pyfmu_csv.model import SignalType
+from pyfmi_csv.csv_model import load_csv_model
+from pyfmi_csv.model import SignalType
 
 
 def test_load_csv_model_reads_outputs_from_header(tmp_path) -> None:

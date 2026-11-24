@@ -1,4 +1,4 @@
-#include "pyfmu_csv/runtime/fmu_runtime.hpp"
+#include "pyfmi_csv/runtime/fmu_runtime.hpp"
 
 #include <algorithm>
 #include <charconv>
@@ -9,7 +9,7 @@
 #include <sstream>
 #include <string>
 
-namespace pyfmu_csv::runtime {
+namespace pyfmi_csv::runtime {
 namespace {
 
 std::string trim(std::string value) {
@@ -213,4 +213,4 @@ bool FmuRuntime::load_csv_data(std::string_view csv_path) {
     return true;
 }
 
-}  // namespace pyfmu_csv::runtime
+}  // namespace pyfmi_csv::runtime

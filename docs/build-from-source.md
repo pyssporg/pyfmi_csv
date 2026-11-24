@@ -21,8 +21,8 @@ For the containerized path, install Podman instead of the native toolchain.
 The FMI reference material is provided through the `3rd_party/fmi_2` submodule.
 
 ```bash
-git clone https://github.com/pyssporg/pyfmu_csv.git
-cd pyfmu_csv
+git clone https://github.com/pyssporg/pyfmi_csv.git
+cd pyfmi_csv
 git submodule update --init --recursive
 ```
 
@@ -57,12 +57,12 @@ The runtime must exist in `build/runtime/` before this install: the editable
 build bundles it and fails when it is missing. Editable and source installs
 remain Python-only otherwise. FMU generation will use either an
 explicit `--runtime-library`, a bundled wheel runtime, or a local
-`build/runtime/libpyfmu_csv_fmi2_cs.*` artifact.
+`build/runtime/libpyfmi_csv_fmi2_cs.*` artifact.
 
 If you do not want to install the package, you can still run the module directly with:
 
 ```bash
-PYTHONPATH=src python -m pyfmu_csv --help
+PYTHONPATH=src python -m pyfmi_csv --help
 ```
 
 ## Native Test Flow

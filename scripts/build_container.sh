@@ -3,7 +3,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
-IMAGE_TAG="${PYFMU_CSV_CONTAINER_IMAGE:-pyfmu-csv-build:ubuntu22-gcc13}"
+IMAGE_TAG="${PYFMI_CSV_CONTAINER_IMAGE:-pyfmi-csv-build:ubuntu22-gcc13}"
 CONTAINERFILE="containers/build/Containerfile"
 BUILD_ARGS=()
 

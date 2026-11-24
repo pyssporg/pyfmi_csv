@@ -3,7 +3,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
-IMAGE_TAG="${PYFMU_CSV_CONTAINER_IMAGE:-pyfmu-csv-build:ubuntu22-gcc13}"
+IMAGE_TAG="${PYFMI_CSV_CONTAINER_IMAGE:-pyfmi-csv-build:ubuntu22-gcc13}"
 source "${SCRIPT_DIR}/container_common.sh"
 
 if ! podman image exists "${IMAGE_TAG}"; then

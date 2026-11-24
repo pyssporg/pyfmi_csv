@@ -1,4 +1,4 @@
-#include "pyfmu_csv/runtime/fmu_runtime.hpp"
+#include "pyfmi_csv/runtime/fmu_runtime.hpp"
 
 #include <cctype>
 #include <cstdlib>
@@ -6,7 +6,7 @@
 #include <string>
 #include <string_view>
 
-namespace pyfmu_csv::runtime {
+namespace pyfmi_csv::runtime {
 namespace {
 
 std::string decode_file_uri(std::string_view location) {
@@ -160,4 +160,4 @@ std::string FmuRuntime::resolve_csv_path(std::string_view csv_path) const {
     return path.string();
 }
 
-}  // namespace pyfmu_csv::runtime
+}  // namespace pyfmi_csv::runtime

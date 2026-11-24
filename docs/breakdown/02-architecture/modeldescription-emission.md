@@ -9,7 +9,7 @@ status: current
 
 # modelDescription emission
 
-`src/pyfmu_csv/model_description.py` emits `modelDescription.xml` through
+`src/pyfmi_csv/model_description.py` emits `modelDescription.xml` through
 `pyfmi_interfaces` when its optional `[fmi]` extra is installed and falls back
 to the bundled writer when it is not.
 
@@ -18,7 +18,7 @@ to the bundled writer when it is not.
   `generate_model_description`, so variable order, names, value references,
   causality, variability, and `modelIdentifier` match the bundled writer.
 - **Zero-dependency fallback:** a missing `pyfmi_interfaces` import warns with
-  `pip install pyfmu-csv[fmi]` and uses the bundled writer, so packaging never
+  `pip install pyfmi-csv[fmi]` and uses the bundled writer, so packaging never
   requires the extra.
 - **Known shared-emitter gaps:** `pyfmi_interfaces` fixes `modelName` to the
   component name (the sanitized `modelIdentifier`), derives its own uuid5 GUID,

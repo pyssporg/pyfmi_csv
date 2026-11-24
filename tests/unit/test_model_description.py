@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import pytest
 
-from pyfmu_csv.csv_model import load_csv_model
-from pyfmu_csv.model_description import build_model_description_xml
+from pyfmi_csv.csv_model import load_csv_model
+from pyfmi_csv.model_description import build_model_description_xml
 
 
 def test_model_description_declares_csv_path_parameter_and_outputs(tmp_path) -> None:
@@ -82,14 +82,14 @@ def _interface_contract(xml_text: str) -> tuple[object, ...]:
 
 
 def test_build_falls_back_to_bundled_writer_without_the_extra(tmp_path, monkeypatch) -> None:
-    from pyfmu_csv import model_description
+    from pyfmi_csv import model_description
 
     csv_path = tmp_path / "signals.csv"
     csv_path.write_text("time,temperature,count:Integer\n0,1,2\n", encoding="utf-8")
     model = load_csv_model(csv_path, "DemoModel")
 
     monkeypatch.setattr(model_description, "_shared_emitter", lambda: None)
-    with pytest.warns(RuntimeWarning, match=r"pyfmu-csv\[fmi\]"):
+    with pytest.warns(RuntimeWarning, match=r"pyfmi-csv\[fmi\]"):
         xml = model_description.build_model_description_xml(model)
 
     assert xml == model_description._build_bundled_model_description_xml(
@@ -98,7 +98,7 @@ def test_build_falls_back_to_bundled_writer_without_the_extra(tmp_path, monkeypa
 
 
 def test_shared_emitter_matches_the_bundled_interface_contract(tmp_path) -> None:
-    from pyfmu_csv import model_description
+    from pyfmi_csv import model_description
 
     pytest.importorskip("pyfmi_interfaces")
     csv_path = tmp_path / "signals.csv"

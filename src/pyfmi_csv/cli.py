@@ -9,7 +9,7 @@ from .packaging import create_fmu_skeleton, package_fmu_from_csv
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        prog="pyfmu-csv",
+        prog="pyfmi-csv",
         description="Build and package CSV-backed FMI artifacts.",
     )
     subparsers = parser.add_subparsers(dest="command", required=True)

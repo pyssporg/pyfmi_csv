@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from pyfmu_csv.packaging import host_platform_tuple
+from pyfmi_csv.packaging import host_platform_tuple
 
 
 def test_host_platform_tuple_returns_fmi_binary_layout() -> None:

@@ -10,8 +10,8 @@ Install the published wheel:
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-python -m pip install https://github.com/pyssporg/pyfmu_csv/releases/latest/download/pyfmu_csv-0-py3-none-linux_x86_64.whl
-pyfmu-csv --help
+python -m pip install https://github.com/pyssporg/pyfmi_csv/releases/latest/download/pyfmi_csv-0-py3-none-linux_x86_64.whl
+pyfmi-csv --help
 ```
 
 This published wheel path is for Linux and uses the `py3-none-linux_x86_64` wheel tag,
@@ -23,7 +23,7 @@ If the published wheel does not match your platform or Python version, use the
 ## Generate an FMU
 
 ```bash
-pyfmu-csv generate-fmu \
+pyfmi-csv generate-fmu \
   --input-csv samples/signals.csv \
   --output CsvSignals.fmu \
   --model-name CsvSignals
@@ -51,7 +51,7 @@ Runtime lookup order is:
 
 1. `--runtime-library`
 2. a runtime bundled into an installed wheel
-3. `build/runtime/libpyfmu_csv_fmi2_cs.*`
+3. `build/runtime/libpyfmi_csv_fmi2_cs.*`
 
 You can override that with:
 
@@ -74,7 +74,7 @@ use the canonical guide:
 ## Inspect a CSV Contract
 
 ```bash
-pyfmu-csv inspect-csv \
+pyfmi-csv inspect-csv \
   --input-csv samples/signals.csv \
   --model-name CsvSignals
 ```
@@ -89,7 +89,7 @@ This prints:
 ## Create an Unzipped Package Skeleton
 
 ```bash
-pyfmu-csv create-fmu-skeleton \
+pyfmi-csv create-fmu-skeleton \
   --input-csv samples/signals.csv \
   --output build/CsvSignals.dir \
   --model-name CsvSignals

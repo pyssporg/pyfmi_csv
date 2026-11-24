@@ -7,7 +7,7 @@
  * have to move into a generated hook, and packaging would switch from embedding
  * one reusable library to compiling generated sources per model.
  */
-#include "pyfmu_csv/runtime/fmu_runtime.hpp"
+#include "pyfmi_csv/runtime/fmu_runtime.hpp"
 
 #include "fmi2Functions.h"
 
@@ -17,7 +17,7 @@
 
 namespace {
 
-using pyfmu_csv::runtime::FmuRuntime;
+using pyfmi_csv::runtime::FmuRuntime;
 
 struct InstanceState {
     FmuRuntime runtime;
@@ -90,7 +90,7 @@ fmi2Component fmi2Instantiate(
     }
 
     instance->callbacks = *functions;
-    instance->instance_name = instanceName != nullptr ? instanceName : "pyfmu_csv";
+    instance->instance_name = instanceName != nullptr ? instanceName : "pyfmi_csv";
     instance->logging_on = loggingOn == fmi2True;
 
     if (fmuResourceLocation != nullptr && !instance->runtime.load_resource_location(fmuResourceLocation)) {

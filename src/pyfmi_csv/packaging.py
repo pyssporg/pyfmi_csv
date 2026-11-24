@@ -30,7 +30,7 @@ def host_platform_tuple() -> tuple[str, str]:
 
 def runtime_library_filename() -> str:
     _, extension = host_platform_tuple()
-    return f"libpyfmu_csv_fmi2_cs{extension}"
+    return f"libpyfmi_csv_fmi2_cs{extension}"
 
 
 def default_runtime_library_path(project_root: str | Path | None = None) -> Path:
@@ -39,7 +39,7 @@ def default_runtime_library_path(project_root: str | Path | None = None) -> Path
 
 
 def bundled_runtime_library() -> Path | None:
-    candidate = resources.files("pyfmu_csv").joinpath("_runtime", runtime_library_filename())
+    candidate = resources.files("pyfmi_csv").joinpath("_runtime", runtime_library_filename())
     if candidate.is_file():
         return Path(candidate)
     return None
@@ -194,7 +194,7 @@ def package_fmu_from_csv(
     destination = Path(output_fmu)
     destination.parent.mkdir(parents=True, exist_ok=True)
 
-    with TemporaryDirectory(prefix="pyfmu_csv_") as temporary_root:
+    with TemporaryDirectory(prefix="pyfmi_csv_") as temporary_root:
         stage_dir = Path(temporary_root) / destination.stem
         create_fmu_skeleton(
             stage_dir,

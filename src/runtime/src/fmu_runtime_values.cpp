@@ -1,8 +1,8 @@
-#include "pyfmu_csv/runtime/fmu_runtime.hpp"
+#include "pyfmi_csv/runtime/fmu_runtime.hpp"
 
 #include <algorithm>
 
-namespace pyfmu_csv::runtime {
+namespace pyfmi_csv::runtime {
 
 bool FmuRuntime::try_get_real(std::size_t value_reference, double& value) const noexcept {
     if (!has_valid_access(value_reference, ValueType::real)) {
@@ -116,4 +116,4 @@ double FmuRuntime::interpolate_real_value(std::size_t value_reference, double qu
     return lower_value + (upper_value - lower_value) * ratio;
 }
 
-}  // namespace pyfmu_csv::runtime
+}  // namespace pyfmi_csv::runtime

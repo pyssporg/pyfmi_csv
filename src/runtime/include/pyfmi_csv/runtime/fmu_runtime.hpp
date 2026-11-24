@@ -7,7 +7,7 @@
 #include <variant>
 #include <vector>
 
-namespace pyfmu_csv::runtime {
+namespace pyfmi_csv::runtime {
 
 enum class ValueType {
     none,
@@ -68,4 +68,4 @@ private:
     std::string last_error_;
 };
 
-}  // namespace pyfmu_csv::runtime
+}  // namespace pyfmi_csv::runtime

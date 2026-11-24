@@ -17,7 +17,7 @@ int fail(const char* message) {
 }
 
 std::filesystem::path create_fixture_root() {
-    const auto root = std::filesystem::temp_directory_path() / "pyfmu_csv_fmi2_api_smoke";
+    const auto root = std::filesystem::temp_directory_path() / "pyfmi_csv_fmi2_api_smoke";
     std::filesystem::create_directories(root / "resources");
     return root;
 }

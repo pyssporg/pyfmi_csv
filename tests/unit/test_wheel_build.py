@@ -17,7 +17,7 @@ def load_setup_namespace() -> dict[str, object]:
 def test_bundle_runtime_copies_binary_into_wheel_build_dir(tmp_path, monkeypatch) -> None:
     namespace = load_setup_namespace()
     build_py = namespace["build_py"]
-    runtime_source = tmp_path / "libpyfmu_csv_fmi2_cs.so"
+    runtime_source = tmp_path / "libpyfmi_csv_fmi2_cs.so"
     runtime_source.write_bytes(b"fake runtime")
     monkeypatch.setitem(
         build_py._bundle_runtime.__globals__,
@@ -30,7 +30,7 @@ def test_bundle_runtime_copies_binary_into_wheel_build_dir(tmp_path, monkeypatch
     command._bundle_runtime()
 
     runtime_filename = namespace["runtime_library_filename"]()
-    destination = tmp_path / "wheel-build" / "pyfmu_csv" / "_runtime" / runtime_filename
+    destination = tmp_path / "wheel-build" / "pyfmi_csv" / "_runtime" / runtime_filename
     assert destination.is_file()
     assert destination.read_bytes() == b"fake runtime"
 
@@ -38,7 +38,7 @@ def test_bundle_runtime_copies_binary_into_wheel_build_dir(tmp_path, monkeypatch
 def test_bundle_runtime_raises_when_binary_is_missing(tmp_path, monkeypatch) -> None:
     namespace = load_setup_namespace()
     build_py = namespace["build_py"]
-    missing_runtime = tmp_path / "build" / "runtime" / "libpyfmu_csv_fmi2_cs.so"
+    missing_runtime = tmp_path / "build" / "runtime" / "libpyfmi_csv_fmi2_cs.so"
     monkeypatch.setitem(
         build_py._bundle_runtime.__globals__,
         "default_runtime_library_path",

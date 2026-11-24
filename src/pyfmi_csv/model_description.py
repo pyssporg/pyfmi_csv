@@ -19,9 +19,9 @@ from .model import CsvModelDescription
 _DEFAULT_CSV_PATH_START = object()
 
 _EXTRA_MISSING_MESSAGE = (
-    "pyfmi_interfaces is not installed; pyfmu_csv is using its bundled "
+    "pyfmi_interfaces is not installed; pyfmi_csv is using its bundled "
     "modelDescription writer. Install the shared FMI emitter with "
-    "`pip install pyfmu-csv[fmi]` to emit through pyfmi_interfaces."
+    "`pip install pyfmi-csv[fmi]` to emit through pyfmi_interfaces."
 )
 
 
@@ -108,7 +108,7 @@ def _build_shared_model_description_xml(
         attributes=(),
     )
 
-    with TemporaryDirectory(prefix="pyfmu_csv_fmi_") as temporary_root:
+    with TemporaryDirectory(prefix="pyfmi_csv_fmi_") as temporary_root:
         written = emitter.generate_model_description(reduction, Path(temporary_root))
         return written[0].read_text(encoding="utf-8")
 
@@ -125,7 +125,7 @@ def _build_bundled_model_description_xml(
             "fmiVersion": "2.0",
             "modelName": model.model_name,
             "guid": model.guid,
-            "generationTool": "pyfmu-csv",
+            "generationTool": "pyfmi-csv",
             "variableNamingConvention": "structured",
         },
     )

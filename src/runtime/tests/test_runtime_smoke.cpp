@@ -1,4 +1,4 @@
-#include "pyfmu_csv/runtime/fmu_runtime.hpp"
+#include "pyfmi_csv/runtime/fmu_runtime.hpp"
 
 #include <cstdlib>
 #include <filesystem>
@@ -27,9 +27,9 @@ std::string to_file_uri(const std::filesystem::path& path) {
 
 int main() {
     namespace fs = std::filesystem;
-    using pyfmu_csv::runtime::FmuRuntime;
+    using pyfmi_csv::runtime::FmuRuntime;
 
-    const fs::path root = create_fixture_root("pyfmu_csv_runtime_smoke");
+    const fs::path root = create_fixture_root("pyfmi_csv_runtime_smoke");
     const fs::path csv_path = root / "resources" / "data" / "signals.csv";
     const fs::path relative_override_path = root / "override-signals.csv";
     const fs::path previous_cwd = fs::current_path();

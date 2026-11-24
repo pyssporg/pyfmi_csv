@@ -27,7 +27,7 @@ become. It is the first document to read, not a reference of last resort.
 
 ## Repository Focus
 
-`pyfmu_csv` turns a CSV-described signal set into a packaged FMI 2.0
+`pyfmi_csv` turns a CSV-described signal set into a packaged FMI 2.0
 Co-Simulation FMU. It reads the CSV header to build a parser-free
 `CsvModelDescription`, emits `modelDescription.xml`, stages the package layout,
 and zips the `.fmu`. It does not parse SysML and emits no SysML artifacts.
@@ -37,7 +37,7 @@ and zips the `.fmu`. It does not parse SysML and emits no SysML artifacts.
 - Outputs: `modelDescription.xml`, `resources/model.json`, an optional copy of
   the source CSV under `resources/data/`, and the native runtime binary under
   `binaries/<platform>/`.
-- The Python package lives in `src/pyfmu_csv/` and the native runtime in
+- The Python package lives in `src/pyfmi_csv/` and the native runtime in
   `src/runtime/`.
 - Current state lives in `docs/breakdown/`; the code is the source of truth
   when the two disagree.
@@ -78,7 +78,7 @@ and zips the `.fmu`. It does not parse SysML and emits no SysML artifacts.
     `python3 $PB registers --root docs/breakdown`; never edit them by hand;
   - run `python3 $PB check --strict --root docs/breakdown` and
     `python3 $PB node-size --strict --root docs/breakdown` after edits.
-- Version lives in `src/pyfmu_csv/__init__.py` only; `pyproject.toml` is
+- Version lives in `src/pyfmi_csv/__init__.py` only; `pyproject.toml` is
   dynamic and has no `[project].version`.
 
 ## Environment

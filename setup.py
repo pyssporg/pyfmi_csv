@@ -16,7 +16,7 @@ except ImportError:  # pragma: no cover
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "src"))
 
-from pyfmu_csv.packaging import default_runtime_library_path, runtime_library_filename  # noqa: E402
+from pyfmi_csv.packaging import default_runtime_library_path, runtime_library_filename  # noqa: E402
 
 
 class build_py(_build_py):
@@ -34,10 +34,10 @@ class build_py(_build_py):
                 "Build the native runtime before building the wheel."
             )
 
-        destination_dir = Path(self.build_lib) / "pyfmu_csv" / "_runtime"
+        destination_dir = Path(self.build_lib) / "pyfmi_csv" / "_runtime"
         destination_dir.mkdir(parents=True, exist_ok=True)
         destination = destination_dir / runtime_library_filename()
-        for existing in destination_dir.glob("libpyfmu_csv_fmi2_cs.*"):
+        for existing in destination_dir.glob("libpyfmi_csv_fmi2_cs.*"):
             existing.unlink()
         shutil.copy2(source, destination)
 

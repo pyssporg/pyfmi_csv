@@ -3,7 +3,7 @@ requires = ["setuptools>=77", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "pyfmu-csv"
+name = "pyfmi-csv"
 dynamic = ["version"]
 description = "Tooling for packaging CSV-driven FMI 2.0 Co-Simulation FMUs."
 readme = "README.md"
@@ -11,7 +11,7 @@ requires-python = ">=3.11"
 license = "MIT"
 license-files = ["LICENSE"]
 authors = [
-  { name = "pyfmu_csv contributors" }
+  { name = "pyfmi_csv contributors" }
 ]
 keywords = [
   "fmi",
@@ -40,24 +40,24 @@ dev = [
 ]
 
 [project.scripts]
-pyfmu-csv = "pyfmu_csv.cli:main"
+pyfmi-csv = "pyfmi_csv.cli:main"
 
 [project.urls]
-Documentation = "https://github.com/pyssporg/pyfmu_csv/tree/main/docs"
-Source = "https://github.com/pyssporg/pyfmu_csv"
+Documentation = "https://github.com/pyssporg/pyfmi_csv/tree/main/docs"
+Source = "https://github.com/pyssporg/pyfmi_csv"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
 
 [tool.setuptools.package-data]
-pyfmu_csv = ["_runtime/*"]
+pyfmi_csv = ["_runtime/*"]
 
 [tool.setuptools.dynamic]
-version = { attr = "pyfmu_csv.__version__" }
+version = { attr = "pyfmi_csv.__version__" }
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["pyfmu_csv*"]
+include = ["pyfmi_csv*"]
 
 [tool.ruff]
 line-length = 100

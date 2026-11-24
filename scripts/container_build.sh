@@ -3,7 +3,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
-IMAGE_TAG="${PYFMU_CSV_CONTAINER_IMAGE:-pyfmu-csv-build:ubuntu22-gcc13}"
+IMAGE_TAG="${PYFMI_CSV_CONTAINER_IMAGE:-pyfmi-csv-build:ubuntu22-gcc13}"
 source "${SCRIPT_DIR}/container_common.sh"
 
 if ! podman image exists "${IMAGE_TAG}"; then
@@ -18,8 +18,8 @@ exec podman run \
   /bin/bash -lc '
     set -euo pipefail
     rm -rf build/CMakeCache.txt build/CMakeFiles build/CTestTestfile.cmake build/Makefile build/Testing build/cmake_install.cmake build/runtime
-    python3 -m venv /tmp/pyfmu-csv-container-venv
-    source /tmp/pyfmu-csv-container-venv/bin/activate
+    python3 -m venv /tmp/pyfmi-csv-container-venv
+    source /tmp/pyfmi-csv-container-venv/bin/activate
     pip_args=()
     if [[ -n "${PIP_CERT-}" ]]; then
       pip_args+=(--cert "$PIP_CERT")

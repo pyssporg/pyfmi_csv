@@ -3,8 +3,8 @@ from __future__ import annotations
 import json
 from zipfile import ZipFile
 
-from pyfmu_csv.csv_model import load_csv_model
-from pyfmu_csv.packaging import create_fmu_skeleton, host_platform_tuple, package_fmu_from_csv
+from pyfmi_csv.csv_model import load_csv_model
+from pyfmi_csv.packaging import create_fmu_skeleton, host_platform_tuple, package_fmu_from_csv
 
 
 def test_create_fmu_skeleton_creates_expected_layout(tmp_path) -> None:
@@ -15,7 +15,7 @@ def test_create_fmu_skeleton_creates_expected_layout(tmp_path) -> None:
     )
     model = load_csv_model(csv_path, "DemoModel")
     output_dir = tmp_path / "DemoModel.fmu"
-    runtime_library = tmp_path / "libpyfmu_csv_fmi2_cs.so"
+    runtime_library = tmp_path / "libpyfmi_csv_fmi2_cs.so"
     runtime_library.write_bytes(b"fake runtime")
 
     create_fmu_skeleton(output_dir, model, runtime_library=runtime_library)
@@ -42,7 +42,7 @@ def test_create_fmu_skeleton_can_skip_copying_source_csv(tmp_path) -> None:
     )
     model = load_csv_model(csv_path, "DemoModel")
     output_dir = tmp_path / "DemoModel.fmu"
-    runtime_library = tmp_path / "libpyfmu_csv_fmi2_cs.so"
+    runtime_library = tmp_path / "libpyfmi_csv_fmi2_cs.so"
     runtime_library.write_bytes(b"fake runtime")
 
     create_fmu_skeleton(output_dir, model, runtime_library=runtime_library, copy_source_csv=False)
@@ -59,7 +59,7 @@ def test_package_fmu_from_csv_writes_archive(tmp_path) -> None:
     csv_path = tmp_path / "signals.csv"
     csv_path.write_text("time,temperature,count:Integer\n0,1,2\n", encoding="utf-8")
     output_fmu = tmp_path / "DemoModel.fmu"
-    runtime_library = tmp_path / "libpyfmu_csv_fmi2_cs.so"
+    runtime_library = tmp_path / "libpyfmi_csv_fmi2_cs.so"
     runtime_library.write_bytes(b"fake runtime")
 
     package_fmu_from_csv(csv_path, output_fmu, "DemoModel", runtime_library=runtime_library)
@@ -80,7 +80,7 @@ def test_package_fmu_from_csv_can_skip_copying_source_csv(tmp_path) -> None:
     csv_path = tmp_path / "signals.csv"
     csv_path.write_text("time,temperature,count:Integer\n0,1,2\n", encoding="utf-8")
     output_fmu = tmp_path / "DemoModel.fmu"
-    runtime_library = tmp_path / "libpyfmu_csv_fmi2_cs.so"
+    runtime_library = tmp_path / "libpyfmi_csv_fmi2_cs.so"
     runtime_library.write_bytes(b"fake runtime")
 
     package_fmu_from_csv(

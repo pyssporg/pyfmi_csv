@@ -1,6 +1,6 @@
-# pyfmu_csv
+# pyfmi_csv
 
-`pyfmu_csv` generates FMI 2.0 Co-Simulation FMU packages from CSV-described signals using a hybrid toolchain:
+`pyfmi_csv` generates FMI 2.0 Co-Simulation FMU packages from CSV-described signals using a hybrid toolchain:
 
 - Python handles CSV inspection, FMU metadata generation, and packaging.
 - C++ provides the reusable runtime artifact that executes inside the FMU host.
@@ -41,14 +41,14 @@ without cloning the repo or building the source tree.
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-python -m pip install https://github.com/pyssporg/pyfmu_csv/releases/latest/download/pyfmu_csv-0-py3-none-linux_x86_64.whl
+python -m pip install https://github.com/pyssporg/pyfmi_csv/releases/latest/download/pyfmi_csv-0-py3-none-linux_x86_64.whl
 ```
 
 After installation, the CLI and bundled runtime are ready to use:
 
 ```bash
-pyfmu-csv --help
-pyfmu-csv generate-fmu \
+pyfmi-csv --help
+pyfmi-csv generate-fmu \
   --input-csv samples/signals.csv \
   --output CsvSignals.fmu \
   --model-name CsvSignals
@@ -67,7 +67,7 @@ If the published wheel does not match your platform or Python version, use the
 Generate an FMU from a CSV file:
 
 ```bash
-pyfmu-csv generate-fmu \
+pyfmi-csv generate-fmu \
   --input-csv samples/signals.csv \
   --output CsvSignals.fmu \
   --model-name CsvSignals
@@ -78,7 +78,7 @@ Add `--no-copy-csv` if you want to omit the CSV from the FMU and set `csv_path` 
 Inspect the CSV-to-VR mapping:
 
 ```bash
-pyfmu-csv inspect-csv \
+pyfmi-csv inspect-csv \
   --input-csv samples/signals.csv \
   --model-name CsvSignals
 ```
@@ -90,7 +90,7 @@ extra to emit `modelDescription.xml` through the shared `pyfmi_interfaces`
 emitter:
 
 ```bash
-python -m pip install "pyfmu_csv[fmi]"
+python -m pip install "pyfmi_csv[fmi]"
 ```
 
 Without the extra, packaging keeps working through the bundled writer and warns

@@ -2,7 +2,7 @@
 
 ## Goal
 
-`pyfmu_csv` is intended to convert CSV-described output signals into FMI 2.0 Co-Simulation FMU packages that can be consumed by generic simulation tooling such as OMSimulator and FMPy.
+`pyfmi_csv` is intended to convert CSV-described output signals into FMI 2.0 Co-Simulation FMU packages that can be consumed by generic simulation tooling such as OMSimulator and FMPy.
 
 ## Product Boundary
 

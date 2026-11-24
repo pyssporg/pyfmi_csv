@@ -22,9 +22,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Adopted the `src/` layout: the Python package moved to `src/pyfmu_csv/` and
+- Adopted the `src/` layout: the Python package moved to `src/pyfmi_csv/` and
   the native runtime to `src/runtime/`.
-- The version is dynamic from `pyfmu_csv.__version__`, the minimum Python is
+- The version is dynamic from `pyfmi_csv.__version__`, the minimum Python is
   3.11, and the ruff and pytest configuration lives in `pyproject.toml`.
 - Wheel builds always bundle the native runtime and fail when it is missing,
   instead of silently skipping it.
