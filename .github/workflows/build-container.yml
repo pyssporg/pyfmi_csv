@@ -20,6 +20,16 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Check tag matches package version
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          tag_version="${GITHUB_REF_NAME#v}"
+          package_version="$(python3 -c 'import sys; sys.path.insert(0, "src"); import pyfmi_csv; print(pyfmi_csv.__version__)')"
+          if [[ "${tag_version}" != "${package_version}" ]]; then
+            echo "tag ${GITHUB_REF_NAME} does not match pyfmi_csv.__version__ ${package_version}" >&2
+            exit 1
+          fi
+
       - name: Install Podman
         run: |
           sudo apt-get update
@@ -55,5 +65,5 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
-          files: dist/*.whl
+          files: dist/*
           fail_on_unmatched_files: true

@@ -31,7 +31,9 @@ classifiers = [
 dependencies = []
 
 [project.optional-dependencies]
-fmi = ["pyfmi-interfaces>=0.5.1"]
+fmi = [
+  "pyfmi-interfaces @ https://github.com/pyssporg/pyfmi_interfaces/releases/download/v0.5.3/pyfmi_interfaces-0.5.3-py3-none-any.whl",
+]
 dev = [
   "pytest>=8",
   "fmpy>=0.3.29",
