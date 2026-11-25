@@ -18,7 +18,7 @@ exec podman run \
   /bin/bash -lc '
     set -euo pipefail
     rm -rf build/CMakeCache.txt build/CMakeFiles build/CTestTestfile.cmake build/Makefile build/Testing build/cmake_install.cmake build/runtime
-    python3 -m venv /tmp/pyfmi-csv-container-venv
+    python3.11 -m venv /tmp/pyfmi-csv-container-venv
     source /tmp/pyfmi-csv-container-venv/bin/activate
     pip_args=()
     if [[ -n "${PIP_CERT-}" ]]; then
